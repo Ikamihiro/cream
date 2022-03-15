@@ -5,10 +5,9 @@ export default function ({ isOpen, onClose }) {
     <Modal size={"xl"} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Configurações</ModalHeader>
+        <ModalHeader>Configurações do Usuário</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-        </ModalBody>
+        <ModalBody></ModalBody>
       </ModalContent>
     </Modal>
   )

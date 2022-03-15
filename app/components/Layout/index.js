@@ -1,5 +1,4 @@
-import { Box, Drawer, DrawerContent, useDisclosure } from "@chakra-ui/react"
-import { useState } from "react"
+import { Box,  useDisclosure } from "@chakra-ui/react"
 import Config from "../Config"
 import Sidebar from "../Sidebar"
 
