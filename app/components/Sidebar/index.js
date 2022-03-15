@@ -1,10 +1,11 @@
 import { Box, CloseButton, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
 import { FiLogOut, FiUser } from "react-icons/fi"
+import { IoIosOptions } from "react-icons/io"
 import { useUser } from "../../context/user.context"
 import { logout } from "../../helpers/auth"
 import NavItem from "../NavItem"
 
-export default function ({ onClose, ...rest }) {
+export default function ({ onModalOpen, ...rest }) {
   const toast = useToast()
   const { user } = useUser()
 
@@ -27,7 +28,7 @@ export default function ({ onClose, ...rest }) {
       bg={"white"}
       borderRight={"1px"}
       borderColor={"gray.200"}
-      w={{ base: "full", md: 96 }}
+      w={96}
       pos={"fixed"}
       h={"full"}
       {...rest}
@@ -41,9 +42,7 @@ export default function ({ onClose, ...rest }) {
         borderBottom={"1px"}
         borderColor={"gray.200"}
       >
-        <Flex
-          mx={"3"}
-        >
+        <Flex mx={"3"}>
           <Text
             fontSize={"18"}
             fontFamily={"monospace"}
@@ -60,11 +59,16 @@ export default function ({ onClose, ...rest }) {
         >
           <IconButton
             variant={"link"}
+            aria-label={"configs"}
+            onClick={() => onModalOpen()}
+            icon={< IoIosOptions />}
+          />
+          <IconButton
+            variant={"link"}
             aria-label={"logout"}
             onClick={() => onLogoutClick()}
             icon={<FiLogOut />}
-          ></IconButton>
-          <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+          />
         </Flex>
       </Flex>
       <Flex
@@ -87,7 +91,6 @@ export default function ({ onClose, ...rest }) {
         >
           {"Chat 1"}
         </NavItem>
-
       </Flex>
     </Box>
   )
