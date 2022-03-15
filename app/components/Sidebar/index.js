@@ -1,4 +1,4 @@
-import { Box, CloseButton, Flex, IconButton, Text, useToast } from "@chakra-ui/react"
+import { Box, CloseButton, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
 import { FiLogOut, FiUser } from "react-icons/fi"
 import { logout } from "../../helpers/auth"
 import NavItem from "../NavItem"
@@ -29,6 +29,7 @@ export default function ({ onClose, ...rest }) {
       pos={"fixed"}
       h={"full"}
       {...rest}
+      // overflowY={"auto"}
     >
       <Flex
         h={"12"}
@@ -36,6 +37,8 @@ export default function ({ onClose, ...rest }) {
         mx={"0"}
         justifyContent={"space-between"}
         bg={"gray.100"}
+        borderBottom={"1px"}
+        borderColor={"gray.200"}
       >
         <Flex
           mx={"3"}
@@ -45,7 +48,9 @@ export default function ({ onClose, ...rest }) {
             fontFamily={"monospace"}
             fontWeight={"bold"}
           >
-            USERNAME
+            <Link href={"/"}>
+              USERNAME
+            </Link>
           </Text>
         </Flex>
         <Flex
@@ -61,12 +66,28 @@ export default function ({ onClose, ...rest }) {
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
         </Flex>
       </Flex>
-      <NavItem
-        icon={FiUser}
-        link={"/"}
+      <Flex
+        direction={"column"}
+        overflowY={"auto"}
+        h={"full"}
+        sx={{
+          '&::-webkit-scrollbar': {
+            width: '8px',
+            backgroundColor: 'rgba(0, 0, 0, 0.07)',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba(0, 0, 0, 0.12)',
+          },
+        }}
       >
-        {"Home"}
-      </NavItem>
+        <NavItem
+          icon={FiUser}
+          link={"/"}
+        >
+          {"Chat 1"}
+        </NavItem>
+        
+      </Flex>
     </Box>
   )
 }

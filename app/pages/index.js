@@ -23,10 +23,14 @@ const Home = props => {
 }
 
 Home.getInitialProps = async ctx => {
-  const redirectOnError = () =>
-    typeof window !== "undefined"
-      ? Router.push("/login")
-      : ctx.res.writeHead(302, { Location: "/login" }).end()
+  const redirectOnError = () => {
+    if (typeof window === 'undefined') {
+      ctx.res.writeHead(302, { Location: '/login' })
+      ctx.res.end()
+    } else {
+      Router.push('/login')
+    }
+  }
 
   try {
     const { token } = nextCookie(ctx)

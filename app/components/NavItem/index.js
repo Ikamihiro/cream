@@ -13,6 +13,8 @@ export default function ({ icon, link, children, ...rest }) {
         mx="0"
         role="group"
         cursor="pointer"
+        borderBottom={"1px"}
+        borderColor={"gray.200"}
         _hover={{
           bg: 'gray.200'
         }}
