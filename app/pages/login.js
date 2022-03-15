@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, chakra, Flex, FormControl, FormHelperText, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Link, Stack, Text, useToast } from '@chakra-ui/react'
+import { Avatar, Box, Button, chakra, Flex, FormControl, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Link, Stack, Text, useToast } from '@chakra-ui/react'
 import Head from 'next/head'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -13,7 +13,6 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: {
       errors
     }
@@ -28,7 +27,6 @@ export default function Login() {
     try {
       const { email, password } = data
       const response = await AuthService.login(email, password)
-      console.log(response)
       const { token } = response
       loginHelper(token)
     } catch (error) {
@@ -118,9 +116,6 @@ export default function Login() {
                     {errors.password && (
                       <Text color='red'>Senha é requerida</Text>
                     )}
-                    <FormHelperText textAlign="right">
-                      <Link>forgot password?</Link>
-                    </FormHelperText>
                   </FormControl>
                   <Button
                     borderRadius={0}
@@ -136,9 +131,9 @@ export default function Login() {
             </Box>
           </Stack>
           <Box>
-            New to us?{" "}
-            <Link color="teal.500" href="#">
-              Sign Up
+            Não possui uma conta?{" "}
+            <Link color="teal.500" href="/register">
+              Registre-se
             </Link>
           </Box>
         </Flex>
