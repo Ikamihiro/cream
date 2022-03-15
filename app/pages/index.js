@@ -21,19 +21,21 @@ const Home = props => {
 }
 
 Home.getInitialProps = async ctx => {
-  const { token } = nextCookie(ctx)
-
   const redirectOnError = () =>
     typeof window !== "undefined"
       ? Router.push("/login")
       : ctx.res.writeHead(302, { Location: "/login" }).end()
 
   try {
-    if (!token) {
-      return await redirectOnError()
+    const { token } = nextCookie(ctx)
+
+    if (token) {
+      return {
+        props: {}
+      }
     }
 
-    return {}
+    return redirectOnError()
   } catch (error) {
     return redirectOnError()
   }
