@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Router from "next/router"
 import nextCookie from "next-cookies"
 import { withAuthSync } from '../helpers/auth'
-import { Flex } from '@chakra-ui/react'
+import Layout from '../components/Layout'
 
 const Home = props => {
   return (
@@ -14,7 +14,9 @@ const Home = props => {
       </Head>
 
       <main>
-        INDEX
+        <Layout>
+          <h1>TESTE</h1>
+        </Layout>
       </main>
     </div>
   )
