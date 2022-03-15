@@ -26,9 +26,9 @@ export default function Login() {
   const onSubmit = async data => {
     try {
       const { name, email, password } = data
-      const response = await AuthService.register(name, email, password)
-      const { token } = response
-      loginHelper(token)
+      let user = await AuthService.register(name, email, password)
+      delete user.password
+      loginHelper(user)
     } catch (error) {
       toast({
         title: "Atenção",

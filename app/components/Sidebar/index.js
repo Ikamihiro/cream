@@ -1,10 +1,12 @@
 import { Box, CloseButton, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
 import { FiLogOut, FiUser } from "react-icons/fi"
+import { useUser } from "../../context/user.context"
 import { logout } from "../../helpers/auth"
 import NavItem from "../NavItem"
 
 export default function ({ onClose, ...rest }) {
   const toast = useToast()
+  const { user } = useUser()
 
   const onLogoutClick = () => {
     try {
@@ -29,7 +31,6 @@ export default function ({ onClose, ...rest }) {
       pos={"fixed"}
       h={"full"}
       {...rest}
-      // overflowY={"auto"}
     >
       <Flex
         h={"12"}
@@ -49,7 +50,7 @@ export default function ({ onClose, ...rest }) {
             fontWeight={"bold"}
           >
             <Link href={"/"}>
-              USERNAME
+              {user ? user.name : ""}
             </Link>
           </Text>
         </Flex>
@@ -86,7 +87,7 @@ export default function ({ onClose, ...rest }) {
         >
           {"Chat 1"}
         </NavItem>
-        
+
       </Flex>
     </Box>
   )

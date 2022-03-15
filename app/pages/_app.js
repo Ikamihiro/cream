@@ -1,10 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react'
+import { UserProvider } from '../context/user.context'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
     </ChakraProvider>
   )
 }

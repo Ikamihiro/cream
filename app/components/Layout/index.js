@@ -25,7 +25,7 @@ export default function ({ children }) {
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Box bg={"gray.100"} ml={{base: 0, md: 60}} p={"4"} h={"100vh"}>
+      <Box bg={"gray.100"} ml={{base: 0, md: 96}} p={"4"} h={"100vh"}>
         {children}
       </Box>
     </Box>

@@ -1,10 +1,20 @@
-import Head from 'next/head'
+import Head from "next/head"
 import Router from "next/router"
 import nextCookie from "next-cookies"
-import { withAuthSync } from '../helpers/auth'
-import Layout from '../components/Layout'
+import { withAuthSync } from "../helpers/auth"
+import Layout from "../components/Layout"
+import { useUser } from "../context/user.context"
+import { useEffect } from "react"
 
-const Home = props => {
+const Home = ({ user: userIncomming }) => {
+  const { user, setUser } = useUser()
+
+  useEffect(() => {
+    if (user === null) {
+      setUser(userIncomming)
+    }
+  }, [userIncomming, setUser])
+
   return (
     <div>
       <Head>
@@ -33,9 +43,9 @@ Home.getInitialProps = async ctx => {
   }
 
   try {
-    const { token } = nextCookie(ctx)
+    const { user } = nextCookie(ctx)
 
-    if (token) {
+    if (user) {
       return {
         props: {}
       }
