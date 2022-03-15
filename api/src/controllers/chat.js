@@ -3,7 +3,11 @@ const User = require("./../models/user")
 
 const getAll = async (req, res) => {
   try {
-    const chats = await Chat.find().sort({ createdAt: -1 })
+    const currentUser = await User.findById(req.user.user_id)
+    const chats = await Chat.find({
+      "participants.id": currentUser._id
+    }).sort({ createdAt: -1 })
+
     return res.status(200).json(chats)
   } catch (error) {
     console.error(error)
@@ -22,7 +26,7 @@ const getById = async (req, res) => {
         error: "Chat especificado não existe"
       })
     }
-    
+
     return res.status(200).json(chat)
   } catch (error) {
     console.error(error)
