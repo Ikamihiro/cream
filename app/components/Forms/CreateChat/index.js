@@ -1,8 +1,13 @@
 import { Box, Button, Flex, FormControl, Input, InputGroup, Stack, Text, Textarea, useToast } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
+import { useChats } from "../../../context/chats.context"
+import { useUser } from "../../../context/user.context"
+import chatService from "../../../services/chat.service"
 
 export default function ({ }) {
   const toast = useToast()
+  const { refreshChats } = useChats()
+  const { user, userLoaded } = useUser()
   const {
     register,
     handleSubmit,
@@ -13,7 +18,23 @@ export default function ({ }) {
 
   const onSubmit = async data => {
     try {
-      const { name, title, description } = data
+      if (!userLoaded) {
+        throw new Error("Você não está autenticado!")
+      }
+
+      const {
+        name,
+        title,
+        description
+      } = data
+
+      await chatService.create(user, {
+        name: name,
+        title: title,
+        description: description
+      })
+
+      refreshChats()
     } catch (error) {
       toast({
         title: "Atenção",
