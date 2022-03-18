@@ -1,14 +1,16 @@
 import { Box, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
 import { FiLogOut, FiUser, FiPlus } from "react-icons/fi"
 import { IoIosOptions } from "react-icons/io"
+import { useChats } from "../../../context/chats.context"
 // import { useState, useEffect } from "react"
 import { useUser } from "../../../context/user.context"
 import { logout } from "../../../helpers/auth"
 import NavItem from "../NavItem"
 
-export default function ({ chats, onConfigOpen, onAddChatOpen, ...rest }) {
+export default function ({ onConfigOpen, onAddChatOpen, ...rest }) {
   const toast = useToast()
   const { user } = useUser()
+  const { chats } = useChats()
 
   const onLogoutClick = () => {
     try {

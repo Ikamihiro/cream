@@ -6,13 +6,12 @@ import Layout from "../components/Layout"
 import ChatService from "../services/chat.service"
 import { useUser } from "../context/user.context"
 import { useState, useEffect } from "react"
+import { ChatsProvider } from "../context/chats.context"
 
 const Home = ({ user: userIncomming }) => {
-  const [chats, setChats] = useState([])
   const {
     user,
-    setUser,
-    userLoaded
+    setUser
   } = useUser()
 
   useEffect(() => {
@@ -21,40 +20,22 @@ const Home = ({ user: userIncomming }) => {
     }
   }, [userIncomming, setUser])
 
-  useEffect(() => {
-    const getChatsFromUser = async () => {
-      if (chats.length === 0) {
-        setChats(await ChatService.getAll(user))
-      }
-    }
-
-    if (userLoaded) {
-      getChatsFromUser().catch(error => {
-        toast({
-          title: "Atenção",
-          description: error.message,
-          duration: 9000,
-          isClosable: true,
-          status: "error"
-        })
-      })
-    }
-  }, [userLoaded])
-
   return (
-    <div>
-      <Head>
-        <title>Cream - Home</title>
-        <meta name="description" content="Sistema de chat real-time" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <ChatsProvider>
+      <div>
+        <Head>
+          <title>Cream - Home</title>
+          <meta name="description" content="Sistema de chat real-time" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <main>
-        <Layout chats={chats}>
-          <h1>TESTE</h1>
-        </Layout>
-      </main>
-    </div>
+        <main>
+          <Layout chats={[]}>
+            <h1>TESTE</h1>
+          </Layout>
+        </main>
+      </div>
+    </ChatsProvider>
   )
 }
 

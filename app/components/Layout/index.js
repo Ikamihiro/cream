@@ -3,7 +3,7 @@ import Chats from "../Modals/Chats"
 import Config from "../Modals/Config"
 import Sidebar from "./Sidebar"
 
-export default function ({ chats, children }) {
+export default function ({ children }) {
   const {
     isOpen: isConfigOpen,
     onOpen: onConfigOpen,
@@ -24,7 +24,6 @@ export default function ({ chats, children }) {
       <Sidebar
         onConfigOpen={onConfigOpen}
         onAddChatOpen={onAddChatOpen}
-        chats={chats}
       />
       <Box
         bg={"gray.100"}
