@@ -43,19 +43,16 @@ const getAll = async (req, res) => {
 
 const getLastMessages = async (req, res) => {
   try {
-    const chatIds = req.params.chatIds
-
-    if (!Array.isArray(chatIds)) {
-      return res.status(400).json({
-        error: "É necessário informar os chats!"
-      })
-    }
+    const currentUser = await User.findById(req.user.user_id)
+    const chats = await Chat.find({
+      "participants.id": currentUser._id
+    }).sort({ createdAt: -1 })
 
     const messages = []
 
-    chatIds.forEach(async (chatId) => {
+    chats.forEach(async (chat) => {
       const query = {
-        "chat.chatId": chatId,
+        "chat.chatId": chat._id,
       }
 
       const lastMessage = await Message
