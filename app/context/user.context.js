@@ -14,14 +14,19 @@ export function useUser() {
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState(null)
+  const [userLoaded, setUserLoaded] = useState(false)
 
   useEffect(() => {
-    console.log('User changed:', user);
-  }, [user]);
+    if (user !== null) {
+      setUserLoaded(true)
+      console.log('User changed:', user);
+    }
+  }, [user, setUserLoaded]);
 
   return <UserContext.Provider value={{
     user: user,
-    setUser: setUser
+    setUser: setUser,
+    userLoaded: userLoaded
   }}>
     {props.children}
   </UserContext.Provider>

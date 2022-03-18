@@ -1,13 +1,16 @@
-import { Box, CloseButton, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
-import { FiLogOut, FiUser } from "react-icons/fi"
+import { Box, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
+import { FiLogOut, FiUser, FiPlus } from "react-icons/fi"
 import { IoIosOptions } from "react-icons/io"
+import { useState, useEffect } from "react"
 import { useUser } from "../../context/user.context"
 import { logout } from "../../helpers/auth"
+import ChatService from "../../services/chat.service"
 import NavItem from "../NavItem"
 
-export default function ({ onModalOpen, ...rest }) {
+export default function ({ onConfigOpen, onAddChatOpen, ...rest }) {
   const toast = useToast()
-  const { user } = useUser()
+  const { user, userLoaded } = useUser()
+  const [chats, setChats] = useState([])
 
   const onLogoutClick = () => {
     try {
@@ -22,6 +25,26 @@ export default function ({ onModalOpen, ...rest }) {
       })
     }
   }
+
+  useEffect(() => {
+    const getChatsFromUser = async () => {
+      if (chats.length === 0) {
+        setChats(await ChatService.getAll(user))
+      }
+    }
+
+    if (userLoaded) {
+      getChatsFromUser().catch(error => {
+        toast({
+          title: "Atenção",
+          description: error.message,
+          duration: 9000,
+          isClosable: true,
+          status: "error"
+        })
+      })
+    }
+  }, [userLoaded])
 
   return (
     <Box
@@ -59,8 +82,14 @@ export default function ({ onModalOpen, ...rest }) {
         >
           <IconButton
             variant={"link"}
+            aria-label={"add chat"}
+            onClick={() => onAddChatOpen()}
+            icon={< FiPlus />}
+          />
+          <IconButton
+            variant={"link"}
             aria-label={"configs"}
-            onClick={() => onModalOpen()}
+            onClick={() => onConfigOpen()}
             icon={< IoIosOptions />}
           />
           <IconButton
@@ -85,12 +114,17 @@ export default function ({ onModalOpen, ...rest }) {
           },
         }}
       >
-        <NavItem
-          icon={FiUser}
-          link={"/"}
-        >
-          {"Chat 1"}
-        </NavItem>
+        {chats.map((chat, index) => {
+          return (
+            <NavItem
+              key={index}
+              icon={FiUser}
+              link={"/"}
+            >
+              {"Chat 1"}
+            </NavItem>
+          )
+        })}
       </Flex>
     </Box>
   )

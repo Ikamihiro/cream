@@ -1,10 +1,7 @@
 import axios from "axios"
-import { auth } from "../helpers/auth"
 import { API_URL } from "../utils/constants"
 
-const user = auth()
-
-const getAll = async () => {
+const getAll = async (user) => {
   try {
     const response = await axios.get(API_URL + "/chat", {
       headers: {
@@ -18,7 +15,7 @@ const getAll = async () => {
   }
 }
 
-const getById = async (chatId) => {
+const getById = async (user, chatId) => {
   try {
     const response = await axios.get(API_URL + "/chat/" + chatId, {
       headers: {
@@ -32,7 +29,7 @@ const getById = async (chatId) => {
   }
 }
 
-const create = async (chat) => {
+const create = async (user, chat) => {
   try {
     const { name, title, description } = chat
 
@@ -52,7 +49,7 @@ const create = async (chat) => {
   }
 }
 
-const update = async (chatId, chat) => {
+const update = async (user, chatId, chat) => {
   try {
     const { name, title, description } = chat
 
