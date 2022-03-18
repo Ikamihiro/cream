@@ -1,7 +1,7 @@
 import { Box, useDisclosure } from "@chakra-ui/react"
 import Chats from "../Modals/Chats"
 import Config from "../Modals/Config"
-import Sidebar from "../Sidebar"
+import Sidebar from "./Sidebar"
 
 export default function ({ chats, children }) {
   const {

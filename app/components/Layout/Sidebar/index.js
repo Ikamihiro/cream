@@ -2,8 +2,8 @@ import { Box, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
 import { FiLogOut, FiUser, FiPlus } from "react-icons/fi"
 import { IoIosOptions } from "react-icons/io"
 // import { useState, useEffect } from "react"
-import { useUser } from "../../context/user.context"
-import { logout } from "../../helpers/auth"
+import { useUser } from "../../../context/user.context"
+import { logout } from "../../../helpers/auth"
 import NavItem from "../NavItem"
 
 export default function ({ chats, onConfigOpen, onAddChatOpen, ...rest }) {
