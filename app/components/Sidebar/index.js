@@ -1,16 +1,14 @@
 import { Box, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
 import { FiLogOut, FiUser, FiPlus } from "react-icons/fi"
 import { IoIosOptions } from "react-icons/io"
-import { useState, useEffect } from "react"
+// import { useState, useEffect } from "react"
 import { useUser } from "../../context/user.context"
 import { logout } from "../../helpers/auth"
-import ChatService from "../../services/chat.service"
 import NavItem from "../NavItem"
 
-export default function ({ onConfigOpen, onAddChatOpen, ...rest }) {
+export default function ({ chats, onConfigOpen, onAddChatOpen, ...rest }) {
   const toast = useToast()
-  const { user, userLoaded } = useUser()
-  const [chats, setChats] = useState([])
+  const { user } = useUser()
 
   const onLogoutClick = () => {
     try {
@@ -25,26 +23,6 @@ export default function ({ onConfigOpen, onAddChatOpen, ...rest }) {
       })
     }
   }
-
-  useEffect(() => {
-    const getChatsFromUser = async () => {
-      if (chats.length === 0) {
-        setChats(await ChatService.getAll(user))
-      }
-    }
-
-    if (userLoaded) {
-      getChatsFromUser().catch(error => {
-        toast({
-          title: "Atenção",
-          description: error.message,
-          duration: 9000,
-          isClosable: true,
-          status: "error"
-        })
-      })
-    }
-  }, [userLoaded])
 
   return (
     <Box
@@ -121,7 +99,7 @@ export default function ({ onConfigOpen, onAddChatOpen, ...rest }) {
               icon={FiUser}
               link={"/"}
             >
-              {"Chat 1"}
+              {chat.name}
             </NavItem>
           )
         })}

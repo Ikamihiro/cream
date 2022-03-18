@@ -3,17 +3,43 @@ import Router from "next/router"
 import nextCookie from "next-cookies"
 import { withAuthSync } from "../helpers/auth"
 import Layout from "../components/Layout"
+import ChatService from "../services/chat.service"
 import { useUser } from "../context/user.context"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 
 const Home = ({ user: userIncomming }) => {
-  const { user, setUser } = useUser()
+  const [chats, setChats] = useState([])
+  const {
+    user,
+    setUser,
+    userLoaded
+  } = useUser()
 
   useEffect(() => {
     if (user === null) {
       setUser(userIncomming)
     }
   }, [userIncomming, setUser])
+
+  useEffect(() => {
+    const getChatsFromUser = async () => {
+      if (chats.length === 0) {
+        setChats(await ChatService.getAll(user))
+      }
+    }
+
+    if (userLoaded) {
+      getChatsFromUser().catch(error => {
+        toast({
+          title: "Atenção",
+          description: error.message,
+          duration: 9000,
+          isClosable: true,
+          status: "error"
+        })
+      })
+    }
+  }, [userLoaded])
 
   return (
     <div>
@@ -24,7 +50,7 @@ const Home = ({ user: userIncomming }) => {
       </Head>
 
       <main>
-        <Layout>
+        <Layout chats={chats}>
           <h1>TESTE</h1>
         </Layout>
       </main>

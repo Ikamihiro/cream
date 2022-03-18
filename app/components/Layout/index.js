@@ -1,9 +1,9 @@
 import { Box, useDisclosure } from "@chakra-ui/react"
-import AddChat from "../AddChat"
-import Config from "../Config"
+import Chats from "../Modals/Chats"
+import Config from "../Modals/Config"
 import Sidebar from "../Sidebar"
 
-export default function ({ children }) {
+export default function ({ chats, children }) {
   const {
     isOpen: isConfigOpen,
     onOpen: onConfigOpen,
@@ -24,6 +24,7 @@ export default function ({ children }) {
       <Sidebar
         onConfigOpen={onConfigOpen}
         onAddChatOpen={onAddChatOpen}
+        chats={chats}
       />
       <Box
         bg={"gray.100"}
@@ -37,7 +38,7 @@ export default function ({ children }) {
         isOpen={isConfigOpen}
         onClose={onConfigClose}
       />
-      <AddChat
+      <Chats
         isOpen={isAddChatOpen}
         onClose={onAddChatClose}
       />
