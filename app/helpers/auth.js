@@ -4,7 +4,7 @@ import nextCookie from "next-cookies"
 import { useEffect } from "react"
 
 export const login = (user) => {
-  cookie.set("user", JSON.stringify(user), { expires: 1 })
+  cookie.set("user", JSON.stringify(user))
   Router.push("/")
 }
 
