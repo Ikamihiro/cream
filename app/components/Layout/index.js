@@ -10,7 +10,7 @@ export default function ({ children }) {
   } = useDisclosure()
 
   return (
-    <Box minH={'100vh'} bg={'white'}>
+    <Box minH={"100vh"} bg={"white"}>
       <Sidebar onModalOpen={onModalOpen}/>
       <Box bg={"gray.100"} ml={"96"} p={"4"} h={"100vh"}>
         {children}

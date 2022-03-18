@@ -41,6 +41,39 @@ const getAll = async (req, res) => {
   }
 }
 
+const getLastMessages = async (req, res) => {
+  try {
+    const chatIds = req.params.chatIds
+
+    if (!Array.isArray(chatIds)) {
+      return res.status(400).json({
+        error: "É necessário informar os chats!"
+      })
+    }
+
+    const messages = []
+
+    chatIds.forEach(async (chatId) => {
+      const query = {
+        "chat.chatId": chatId,
+      }
+
+      const lastMessage = await Message
+        .findOne(query)
+        .sort({ sendAt: -1 })
+
+      messages.push(lastMessage)
+    });
+
+    return res.status(200).json(messages)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      error: "Ocorreu um erro no servidor"
+    })
+  }
+}
+
 const getById = async (req, res) => {
   try {
     const messageId = req.params.messageId
@@ -178,6 +211,7 @@ const sendFile = async (req, res) => {
 module.exports = {
   getAll: getAll,
   getById: getById,
+  getLastMessages: getLastMessages,
   sendText: sendText,
   sendFile: sendFile
 }

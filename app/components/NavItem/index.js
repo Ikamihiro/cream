@@ -8,11 +8,11 @@ export default function ({ icon, link, children, ...rest }) {
       _focus={{ boxShadow: 'none' }}
     >
       <Flex
-        align="center"
-        p="4"
-        mx="0"
-        role="group"
-        cursor="pointer"
+        align={"center"}
+        p={"4"}
+        mx={"0"}
+        role={"group"}
+        cursor={"pointer"}
         borderBottom={"1px"}
         borderColor={"gray.200"}
         _hover={{
@@ -23,7 +23,7 @@ export default function ({ icon, link, children, ...rest }) {
         {icon && (
           <Icon
             mr={"4"}
-            fontSize="16"
+            fontSize={"16"}
             as={icon}
           ></Icon>
         )}
