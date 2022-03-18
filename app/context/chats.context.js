@@ -9,7 +9,7 @@ export function useChats() {
   const context = useContext(ChatsContext)
 
   if (context === undefined) {
-    throw new Error("Função 'useUser' usada fora do contexto!")
+    throw new Error("Função 'useChats' usada fora do contexto!")
   }
 
   return context
