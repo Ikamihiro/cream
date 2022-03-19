@@ -17,7 +17,7 @@ export function useChats() {
 
 export const ChatsProvider = (props) => {
   const toast = useToast()
-  const { user } = useUser()
+  const { user, socketConnection } = useUser()
   const [chats, setChats] = useState([])
 
   const refreshChats = async () => {
@@ -35,6 +35,12 @@ export const ChatsProvider = (props) => {
       })
     }
   }
+
+  useEffect(() => {
+    if (chats.length > 0) {
+      socketConnection.emit("join_chats", chats)
+    }
+  }, [chats, socketConnection])
 
   useEffect(() => {
     (async function () {
@@ -56,6 +62,7 @@ export const ChatsProvider = (props) => {
   return (
     <ChatsContext.Provider value={{
       chats: chats,
+      // socket: socket,
       refreshChats: refreshChats
     }}>
       {props.children}

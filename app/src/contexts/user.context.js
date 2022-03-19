@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from "react"
 import { getUser } from "../helpers/auth"
+import { connectWithSocket } from "../utils/socket"
 
 export const UserContext = createContext()
 
@@ -15,12 +16,7 @@ export function useUser() {
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    if (user !== null) {
-      console.log('User changed:', user)
-    }
-  }, [user])
+  const [socketConnection, setSocketConnection] = useState(null)
 
   useEffect(() => {
     const userLogged = getUser()
@@ -30,9 +26,17 @@ export const UserProvider = (props) => {
     }
   }, [user, setUser])
 
+  useEffect(() => {
+    if (user !== null) {
+      setSocketConnection(connectWithSocket(user))
+      console.log('User changed:', user)
+    }
+  }, [user])
+
   return (
     <UserContext.Provider value={{
       user: user,
+      socketConnection: socketConnection,
       setUser: setUser
     }}>
       {props.children}

@@ -1,3 +1,4 @@
+import ChatSpace from "../components/Chat/ChatSpace"
 import Layout from "../components/Layout/Layout"
 import { ChatProvider } from "../contexts/chat.context"
 import { ChatsProvider } from "../contexts/chats.context"
@@ -16,7 +17,7 @@ export default function App() {
       <ChatsProvider>
         <ChatProvider>
           <Layout>
-            <h1>INDEX</h1>
+            <ChatSpace />
           </Layout>
         </ChatProvider>
       </ChatsProvider>
