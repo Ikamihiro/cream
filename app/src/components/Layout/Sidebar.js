@@ -2,6 +2,7 @@ import { Box, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
 import { FiLogOut, FiUser, FiPlus } from "react-icons/fi"
 import { IoIosOptions } from "react-icons/io"
 import { useChats } from "../../contexts/chats.context"
+import { useChat } from "../../contexts/chat.context"
 import { useUser } from "../../contexts/user.context"
 import { logout } from "../../helpers/auth"
 import NavItem from "./NavItem"
@@ -10,11 +11,26 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
   const toast = useToast()
   const { user, setUser } = useUser()
   const { chats } = useChats()
+  const { setChat } = useChat()
 
   const onLogoutClick = () => {
     try {
       logout();
       setUser(null);
+    } catch (error) {
+      toast({
+        title: "Atenção",
+        description: error.message,
+        duration: 9000,
+        isClosable: true,
+        status: "error"
+      })
+    }
+  }
+
+  const chooseChat = (chat) => {
+    try {
+      setChat(chat);
     } catch (error) {
       toast({
         title: "Atenção",
@@ -100,6 +116,7 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
               key={index}
               icon={FiUser}
               link={"/"}
+              onClick={() => chooseChat(chat)}
             >
               {chat.name}
             </NavItem>

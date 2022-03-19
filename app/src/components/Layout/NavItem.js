@@ -1,11 +1,11 @@
 import { Flex, Icon, Link } from "@chakra-ui/react"
 
-export default function NavItem({ icon, link, children, ...rest }) {
+export default function NavItem({ icon, onClick, children, ...rest }) {
   return (
     <Link
-      href={link}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}
+      onClick={onClick}
     >
       <Flex
         align={"center"}

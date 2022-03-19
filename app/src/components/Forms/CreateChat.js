@@ -18,10 +18,6 @@ export default function CreateChat() {
 
   const onSubmit = async data => {
     try {
-      if (!user) {
-        throw new Error("Você não está autenticado!")
-      }
-
       const {
         name,
         title,
