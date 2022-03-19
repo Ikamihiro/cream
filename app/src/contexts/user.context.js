@@ -20,7 +20,7 @@ export const UserProvider = (props) => {
 
   useEffect(() => {
     const userLogged = getUser()
-    
+
     if (user === null && userLogged !== null) {
       setUser(userLogged)
     }

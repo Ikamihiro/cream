@@ -53,7 +53,7 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
       {...rest}
     >
       <Flex
-        h={"12"}
+        h={"14"}
         alignItems={"center"}
         mx={"0"}
         justifyContent={"space-between"}

@@ -26,9 +26,8 @@ export default function Layout({ children }) {
         onAddChatOpen={onAddChatOpen}
       />
       <Box
-        bg={"gray.100"}
         ml={"96"}
-        p={"4"}
+        p={"0"}
         h={"100vh"}
       >
         {children}
