@@ -44,9 +44,8 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
 
   return (
     <Box
-      bg={"white"}
-      borderRight={"1px"}
-      borderColor={"gray.200"}
+      bg={"gray.100"}
+      shadow={"md"}
       w={96}
       pos={"fixed"}
       h={"full"}
@@ -57,9 +56,7 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
         alignItems={"center"}
         mx={"0"}
         justifyContent={"space-between"}
-        bg={"gray.100"}
-        borderBottom={"1px"}
-        borderColor={"gray.200"}
+        bg={"gray.300"}
       >
         <Flex mx={"3"}>
           <Text
@@ -79,18 +76,21 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
           <IconButton
             variant={"link"}
             aria-label={"add chat"}
+            color={"black"}
             onClick={() => onAddChatOpen()}
             icon={< FiPlus />}
           />
           <IconButton
             variant={"link"}
             aria-label={"configs"}
+            color={"black"}
             onClick={() => onConfigOpen()}
             icon={< IoIosOptions />}
           />
           <IconButton
             variant={"link"}
             aria-label={"logout"}
+            color={"black"}
             onClick={() => onLogoutClick()}
             icon={<FiLogOut />}
           />

@@ -1,6 +1,6 @@
-import { Flex, Icon, Text } from "@chakra-ui/react";
-import { FiUser } from "react-icons/fi";
-import { useChat } from "../../contexts/chat.context";
+import { Flex, Icon, Text } from "@chakra-ui/react"
+import { FiUser } from "react-icons/fi"
+import { useChat } from "../../contexts/chat.context"
 
 export default function ChatHead() {
   const { chat } = useChat()
@@ -8,12 +8,10 @@ export default function ChatHead() {
   return (
     <>
       <Flex
-        bg={"gray.100"}
-        minW={"100%"}
+        bg={"gray.300"}
+        w={"100%"}
         h={"14"}
         padding={"1rem"}
-        borderBottom={"1px"}
-        borderColor={"gray.200"}
         direction={"row"}
         justifyContent={"space-between"}
         alignItems={"center"}
@@ -34,6 +32,7 @@ export default function ChatHead() {
             fontSize={"14pt"}
             fontWeight={"bold"}
             padding={"0"}
+            fontFamily={"monospace"}
           >
             {chat.title}
           </Text>

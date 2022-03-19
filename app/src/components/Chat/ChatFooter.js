@@ -1,10 +1,10 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react"
 
 export default function ChatFooter() {
   return (
     <>
       <Box
-        bg={"gray.100"}
+        bg={"gray.200"}
         w={"full"}
       >
         <Flex

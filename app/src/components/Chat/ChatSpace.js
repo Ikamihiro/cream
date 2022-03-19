@@ -14,7 +14,8 @@ export default function ChatSpace() {
           flexDirection={"column"}
           width={"100wh"}
           height={"100vh"}
-          backgroundColor={"gray.100"}
+          backgroundColor={"gray.500"}
+          color={"white"}
           justifyContent={"center"}
           alignItems={"center"}
         >
@@ -43,10 +44,11 @@ export default function ChatSpace() {
     <>
       <Flex
         flexDirection={"column"}
-        width={"100wh"}
-        height={"100vh"}
-        backgroundColor={"white"}
-        justifyContent={"stretch"}
+        width={"100%"}
+        minW={"700px"}
+        height={"100%"}
+        backgroundColor={"gray.500"}
+        justifyContent={"start"}
         alignItems={"stretch"}
       >
         <ChatHead />
