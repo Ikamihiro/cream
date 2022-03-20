@@ -40,7 +40,7 @@ export default function Message({ type, content, isSelf, sender, sendAt }) {
 
             {type === "text" && (
               <div className="message-body__text">
-                {content}
+                {content.body}
               </div>
             )}
 

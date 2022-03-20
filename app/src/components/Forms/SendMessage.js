@@ -1,19 +1,41 @@
-import { Box, Button, Flex, Input, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, Input, useToast } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 import { useUser } from "../../contexts/user.context"
+import { useChat } from "../../contexts/chat.context"
+import MessagesService from "../../services/messages.service"
 
 export default function SendMessage() {
-  const { setUser } = useUser()
+  const toast = useToast()
+  const { user } = useUser()
+  const { chat } = useChat()
   const {
     register,
-    handleSubmit,
-    formState: {
-      errors
-    }
+    handleSubmit
   } = useForm()
 
   const onSubmit = async data => {
-    console.log(data)
+    try {
+      const { message } = data
+
+      if (!message || message === "") {
+        return;
+      }
+
+      const response = await MessagesService.sendText(user, {
+        body: message,
+        chatId: chat._id
+      })
+
+      console.log(response)
+    } catch (error) {
+      toast({
+        title: "Atenção",
+        description: error.message,
+        duration: 9000,
+        isClosable: true,
+        status: "error"
+      })
+    }
   }
 
   return (
@@ -32,7 +54,7 @@ export default function SendMessage() {
           </Box>
           <Box w={"10%"}>
             <Button
-              borderRadius={0}
+              borderRadius={10}
               type={"submit"}
               variant={"solid"}
               colorScheme={"teal"}
