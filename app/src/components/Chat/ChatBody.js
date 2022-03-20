@@ -1,7 +1,12 @@
 import { Flex } from "@chakra-ui/react"
+import { useChat } from "../../contexts/chat.context"
+import { useUser } from "../../contexts/user.context"
 import Message from "../Message/Message"
 
 export default function ChatBody() {
+  const { messages } = useChat()
+  const { user } = useUser()
+
   return (
     <>
       <Flex
@@ -20,51 +25,22 @@ export default function ChatBody() {
           },
         }}
       >
-        <Message
-          type={"text"}
-          content={"Olá!"}
-          isSelf={false}
-          sender={{
-            name: "Fulano A"
-          }}
-          sendAt={"2022-03-19T11:19:04.642Z"}
-        />
-        <Message
-          type={"text"}
-          content={"Olá!"}
-          isSelf={true}
-          sender={{
-            name: "Fulano B"
-          }}
-          sendAt={"2022-03-19T11:19:04.642Z"}
-        />
-        <Message
-          type={"image"}
-          content={"https://c4.wallpaperflare.com/wallpaper/500/442/354/outrun-vaporwave-hd-wallpaper-preview.jpg"}
-          isSelf={true}
-          sender={{
-            name: "Fulano B"
-          }}
-          sendAt={"2022-03-19T11:19:04.642Z"}
-        />
-        <Message
-          type={"video"}
-          content={"https://edisciplinas.usp.br/pluginfile.php/5182764/mod_resource/content/1/libras-intro.mp4"}
-          isSelf={false}
-          sender={{
-            name: "Fulano A"
-          }}
-          sendAt={"2022-03-19T11:19:04.642Z"}
-        />
-        <Message
-          type={"audio"}
-          content={"https://samplelib.com/lib/preview/mp3/sample-3s.mp3"}
-          isSelf={true}
-          sender={{
-            name: "Fulano B"
-          }}
-          sendAt={"2022-03-19T11:19:04.642Z"}
-        />
+        {messages.map((message, index) => {
+          let isSelf = message.sender.senderId === user._id
+
+          return (
+            <Message
+              key={index}
+              type={message.type}
+              content={message.content}
+              isSelf={isSelf}
+              sender={{
+                name: message.sender.senderName
+              }}
+              sendAt={message.sendAt}
+            />
+          )
+        })}
       </Flex>
     </>
   )

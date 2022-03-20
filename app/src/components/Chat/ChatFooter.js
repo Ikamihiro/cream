@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react"
+import SendMessage from "../Forms/SendMessage"
 
 export default function ChatFooter() {
   return (
@@ -10,8 +11,10 @@ export default function ChatFooter() {
         <Flex
           direction={"column"}
           padding={"1.35rem"}
+          justifyContent={"stretch"}
+          alignItems={"stretch"}
         >
-          Aqui vai ficar a caixa pra mandar mensagem
+          <SendMessage />
         </Flex>
       </Box>
     </>
