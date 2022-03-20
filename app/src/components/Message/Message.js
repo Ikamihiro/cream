@@ -22,6 +22,7 @@ export default function Message({ type, content, isSelf, sender, sendAt }) {
                 {"10:00"}
               </div>
               <IconButton
+                variant={"link"}
                 size={"sm"}
                 bg={"#d4dce6"}
                 icon={<IoIosArrowDown />}

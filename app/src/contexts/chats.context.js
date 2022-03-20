@@ -45,8 +45,9 @@ export const ChatsProvider = (props) => {
   useEffect(() => {
     (async function () {
       try {
-        setChats(await ChatsService.getAll(user))
-        console.log("Chats loaded!")
+        const chatsLoaded = await ChatsService.getAll(user)
+        setChats(chatsLoaded)
+        console.log("Chats loaded!", user, chatsLoaded)
       } catch (error) {
         toast({
           title: "Atenção",

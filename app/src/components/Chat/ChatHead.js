@@ -1,9 +1,16 @@
-import { Flex, Icon, Text } from "@chakra-ui/react"
-import { FiUser } from "react-icons/fi"
+import { Flex, Icon, IconButton, Text, useDisclosure } from "@chakra-ui/react"
+import { FiUser, FiSettings } from "react-icons/fi"
+import { BsFillPersonPlusFill } from "react-icons/bs"
 import { useChat } from "../../contexts/chat.context"
+import Participants from "../Modals/Participants"
 
 export default function ChatHead() {
   const { chat } = useChat()
+  const {
+    isOpen: isParticipantsOpen,
+    onOpen: onParticipantsOpen,
+    onClose: onParticipantsClose
+  } = useDisclosure()
 
   return (
     <>
@@ -17,10 +24,9 @@ export default function ChatHead() {
         alignItems={"center"}
       >
         <Flex
-          minH={"100%"}
+          direction={"row"}
           justifyContent={"start"}
           alignItems={"center"}
-          padding={"0"}
         >
           <Icon
             w={"6"}
@@ -37,7 +43,32 @@ export default function ChatHead() {
             {chat.title}
           </Text>
         </Flex>
+        <Flex
+          direction={"row"}
+          justifyContent={"flex-end"}
+          alignItems={"center"}
+        >
+          <IconButton
+            variant={"link"}
+            color={"black"}
+            aria-label={"chat config"}
+            bgColor={"gray.300"}
+            icon={<BsFillPersonPlusFill />}
+            onClick={() => onParticipantsOpen()}
+          />
+          <IconButton
+            variant={"link"}
+            color={"black"}
+            aria-label={"chat config"}
+            bgColor={"gray.300"}
+            icon={<FiSettings />}
+          />
+        </Flex>
       </Flex>
+      <Participants
+        isOpen={isParticipantsOpen}
+        onClose={onParticipantsClose}
+      />
     </>
   )
 }
