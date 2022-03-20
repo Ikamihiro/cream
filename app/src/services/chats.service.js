@@ -69,11 +69,47 @@ const update = async (user, chatId, chat) => {
 	}
 }
 
+const addParticipant = async (user, chatId, participantEmail) => {
+  try {
+    const response = await axios.post(API_URL + "/chat/addParticipant", {
+			chatId: chatId,
+			participantEmail: participantEmail
+		}, {
+			headers: {
+				"Authorization": user.token
+			}
+		})
+
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+const removeParticipant = async (user, chatId, participantEmail) => {
+  try {
+    const response = await axios.post(API_URL + "/chat/removeParticipant", {
+			chatId: chatId,
+			participantEmail: participantEmail
+		}, {
+			headers: {
+				"Authorization": user.token
+			}
+		})
+
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
 const ChatsService = {
 	getAll: getAll,
 	getById: getById,
 	create: create,
-	update: update
+	update: update,
+  addParticipant: addParticipant,
+  removeParticipant: removeParticipant
 }
 
 export default ChatsService

@@ -16,9 +16,9 @@ chatRouter.post("/", ChatController.create)
 chatRouter.put("/:chatId", ChatController.update)
 
 // Adicionar participante ao chat
-chatRouter.post("/:chatId/participant/:participantId", ChatController.addParticipant)
+chatRouter.post("/addParticipant", ChatController.addParticipant)
 
 // Remover participante ao chat
-chatRouter.delete("/:chatId/participant/:participantId", ChatController.removeParticipant)
+chatRouter.delete("/removeParticipant", ChatController.removeParticipant)
 
 module.exports = chatRouter

@@ -116,8 +116,10 @@ const update = async (req, res) => {
 
 const addParticipant = async (req, res) => {
   try {
-    const chatId = req.params.chatId
-    const participantEmail = req.params.participantEmail
+    const {
+      participantEmail,
+      chatId
+    } = req.body
 
     const participant = await User.findOne({
       email: participantEmail
@@ -163,8 +165,10 @@ const addParticipant = async (req, res) => {
 
 const removeParticipant = async (req, res) => {
   try {
-    const chatId = req.params.chatId
-    const participantId = req.params.participantId
+    const {
+      participantId,
+      chatId
+    } = req.body
 
     const participant = await User.findById(participantId)
     if (!participant) {

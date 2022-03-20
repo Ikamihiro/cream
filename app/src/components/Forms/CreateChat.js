@@ -11,6 +11,7 @@ export default function CreateChat() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: {
       errors
     }
@@ -31,6 +32,15 @@ export default function CreateChat() {
       })
 
       refreshChats()
+      reset()
+
+      toast({
+        title: "Uouu!",
+        description: "Conversa criada com sucesso!",
+        duration: 9000,
+        isClosable: true,
+        status: "success"
+      })
     } catch (error) {
       toast({
         title: "Atenção",

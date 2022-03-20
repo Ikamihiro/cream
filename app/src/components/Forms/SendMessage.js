@@ -10,7 +10,8 @@ export default function SendMessage() {
   const { chat } = useChat()
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    reset
   } = useForm()
 
   const onSubmit = async data => {
@@ -25,8 +26,16 @@ export default function SendMessage() {
         body: message,
         chatId: chat._id
       })
-
       console.log(response)
+      reset()
+
+      toast({
+        title: "Uouu!",
+        description: "Mensagem enviada com sucesso!",
+        duration: 9000,
+        isClosable: true,
+        status: "success"
+      })
     } catch (error) {
       toast({
         title: "Atenção",

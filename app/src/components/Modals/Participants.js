@@ -1,5 +1,6 @@
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Tab, Table, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 import { useChat } from "../../contexts/chat.context"
+import AddParticipant from "../Forms/AddParticipant"
 
 export default function Participants({ isOpen, onClose }) {
   const { chat } = useChat()
@@ -43,7 +44,7 @@ export default function Participants({ isOpen, onClose }) {
                 </Table>
               </TabPanel>
               <TabPanel>
-                Adicionar participante
+                <AddParticipant />
               </TabPanel>
             </TabPanels>
           </Tabs>
