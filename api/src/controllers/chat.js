@@ -166,8 +166,8 @@ const addParticipant = async (req, res) => {
 const removeParticipant = async (req, res) => {
   try {
     const {
-      participantId,
-      chatId
+      chatId,
+      participantId
     } = req.body
 
     const participant = await User.findById(participantId)

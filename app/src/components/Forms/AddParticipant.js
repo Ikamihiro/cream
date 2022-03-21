@@ -20,8 +20,7 @@ export default function AddParticipant() {
   const onSubmit = async data => {
     try {
       const { email } = data
-      await ChatsService.addParticipant(user, chat._id, email)
-      setChat(await ChatsService.getById(user, chat._id))
+      setChat(await ChatsService.addParticipant(user, chat._id, email))
       reset()
 
       toast({

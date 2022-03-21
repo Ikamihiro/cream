@@ -86,11 +86,11 @@ const addParticipant = async (user, chatId, participantEmail) => {
   }
 }
 
-const removeParticipant = async (user, chatId, participantEmail) => {
+const removeParticipant = async (user, chatId, participantId) => {
   try {
     const response = await axios.post(API_URL + "/chat/removeParticipant", {
 			chatId: chatId,
-			participantEmail: participantEmail
+			participantId: participantId
 		}, {
 			headers: {
 				"Authorization": user.token
