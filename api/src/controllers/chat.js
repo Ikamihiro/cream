@@ -5,7 +5,7 @@ const getAll = async (req, res) => {
   try {
     const currentUser = await User.findById(req.user.user_id)
     const chats = await Chat.find({
-      "participants.id": currentUser._id
+      "participants.participantId": currentUser._id
     }).sort({ createdAt: -1 })
 
     return res.status(200).json(chats)
@@ -116,10 +116,15 @@ const update = async (req, res) => {
 
 const addParticipant = async (req, res) => {
   try {
-    const chatId = req.params.chatId
-    const participantId = req.params.participantId
+    const {
+      participantEmail,
+      chatId
+    } = req.body
 
-    const participant = await User.findById(participantId)
+    const participant = await User.findOne({
+      email: participantEmail
+    })
+
     if (!participant) {
       return res.status(404).json({
         error: "Participante especificado não existe"
@@ -160,8 +165,10 @@ const addParticipant = async (req, res) => {
 
 const removeParticipant = async (req, res) => {
   try {
-    const chatId = req.params.chatId
-    const participantId = req.params.participantId
+    const {
+      chatId,
+      participantId
+    } = req.body
 
     const participant = await User.findById(participantId)
     if (!participant) {
