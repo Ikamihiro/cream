@@ -43,7 +43,7 @@ const getAll = async (req, res) => {
 
 const getLastMessages = async (req, res) => {
   try {
-    const currentUser = await User.findById(req.user.user_id)
+    const currentUser = req.user;
     const chats = await Chat.find({
       "participants.id": currentUser._id
     }).sort({ createdAt: -1 })
@@ -110,7 +110,7 @@ const sendText = async (req, res) => {
       })
     }
 
-    const sender = await User.findById(req.user.user_id)
+    const sender = req.user;
 
     const message = await Message.create({
       content: {
@@ -177,7 +177,7 @@ const sendFile = async (req, res) => {
       }
     })
 
-    const sender = await User.findById(req.user.user_id)
+    const sender = req.user;
 
     const message = await Message.create({
       content: {

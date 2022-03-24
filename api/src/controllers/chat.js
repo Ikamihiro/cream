@@ -3,7 +3,7 @@ const User = require("./../models/user")
 
 const getAll = async (req, res) => {
   try {
-    const currentUser = await User.findById(req.user.user_id)
+    const currentUser = req.user;
     const chats = await Chat.find({
       "participants.participantId": currentUser._id
     }).sort({ createdAt: -1 })
@@ -50,7 +50,7 @@ const create = async (req, res) => {
       })
     }
 
-    const currentUser = await User.findById(req.user.user_id)
+    const currentUser = req.user;
     const participants = [
       {
         participantId: currentUser._id,

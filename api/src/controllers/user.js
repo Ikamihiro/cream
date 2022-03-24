@@ -101,7 +101,21 @@ const login = async (req, res) => {
   }
 }
 
+const me = async (req, res) => {
+  try {
+    const user = req.user;
+
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      error: "Ocorreu um erro no servidor"
+    })
+  }
+}
+
 module.exports = {
   register: register,
-  login: login
+  login: login,
+  me: me
 }
