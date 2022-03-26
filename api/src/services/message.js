@@ -1,11 +1,14 @@
+const { getSocketConnection } = require("../config/socket");
+
 const onNewMessage = async (messageId, chatId) => {
-	try {
-		// AQUI VAI AVISAR O SOCKET QUE TEM UMA NOVA MENSAGEM
-	} catch (error) {
-		throw error
-	}
-}
+  try {
+    const newMessage = { messageId, chatId };
+    getSocketConnection().emit("on_new_message", newMessage);
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
-	onNewMessage: onNewMessage
-}
+  onNewMessage: onNewMessage,
+};
