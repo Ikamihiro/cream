@@ -2,9 +2,8 @@ const path = require("path");
 const fs = require("fs");
 const Message = require("./../models/message");
 const Chat = require("./../models/chat");
-const User = require("./../models/user");
 const { uuid } = require("../utils/uuid");
-const { onNewMessage } = require("../services/message");
+const { onNewMessage } = require("../services/socket");
 const { APP_URL } = process.env;
 
 const getAll = async (req, res) => {
@@ -184,6 +183,8 @@ const sendFile = async (req, res) => {
         chatName: chat.name,
       },
     });
+
+    onNewMessage(message._id, chat._id);
 
     return res.status(200).json(message);
   } catch (error) {

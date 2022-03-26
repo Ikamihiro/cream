@@ -1,5 +1,10 @@
 const Chat = require("./../models/chat");
 const User = require("./../models/user");
+const {
+  onParticipantJoinChat,
+  onParticipantLeaveChat,
+  onChatUpdate,
+} = require("../services/socket");
 
 const getAll = async (req, res) => {
   try {
@@ -83,7 +88,7 @@ const update = async (req, res) => {
       });
     }
 
-    const chat = await Chat.findById(chatId);
+    let chat = await Chat.findById(chatId);
 
     if (!chat) {
       return res.status(404).json({
@@ -96,8 +101,11 @@ const update = async (req, res) => {
       title: title,
       description: description,
     });
+    chat = await Chat.findById(chat._id);
 
-    return res.status(200).json(await Chat.findById(chat._id));
+    onChatUpdate(chat);
+
+    return res.status(200).json(chat);
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -150,6 +158,12 @@ const addParticipant = async (req, res) => {
       participants: newParticipants,
     });
 
+    onParticipantJoinChat(chat._id, {
+      participantId: participant._id,
+      name: participant.name,
+      email: participant.email,
+    });
+
     return res.status(200).json(await Chat.findById(chat._id));
   } catch (error) {
     console.error(error);
@@ -192,6 +206,12 @@ const removeParticipant = async (req, res) => {
     );
     await Chat.findByIdAndUpdate(chat._id, {
       participants: newParticipants,
+    });
+
+    onParticipantLeaveChat(chat._id, {
+      participantId: participant._id,
+      name: participant.name,
+      email: participant.email,
     });
 
     return res.status(200).json(await Chat.findById(chat._id));
