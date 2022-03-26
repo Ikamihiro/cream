@@ -1,4 +1,4 @@
-const { io } = require("socket.io-client");
+const { Socket, io } = require("socket.io-client");
 const { SOCKET_URL } = process.env;
 
 var socketConnection = null;
@@ -15,6 +15,9 @@ const connectionWithSocket = () => {
   }
 };
 
+/**
+ * @returns {Socket}
+ */
 const getSocketConnection = () => {
   if (socketConnection === null) {
     connectionWithSocket();
@@ -24,6 +27,6 @@ const getSocketConnection = () => {
 };
 
 module.exports = {
-  getSocketConnection: getSocketConnection,
-  connectionWithSocket: connectionWithSocket,
+  getSocketConnection,
+  connectionWithSocket,
 };
