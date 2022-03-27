@@ -1,9 +1,9 @@
 import { Flex, Icon, IconButton, Image } from "@chakra-ui/react";
 import { IoIosArrowDown } from "react-icons/io";
-import { AiOutlineFilePdf, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineFilePdf } from "react-icons/ai";
 import { BiLoaderCircle } from "react-icons/bi";
-import "./Message.css";
 import { useUser } from "../../contexts/user.context";
+import "./Message.css";
 
 export default function Message({ message }) {
   const { user } = useUser();
@@ -12,7 +12,7 @@ export default function Message({ message }) {
 
   const getTime = () => {
     let dateString = new Date(sendAt).toLocaleString();
-    let [, time] = dateString.split(", ");
+    let [, time] = dateString.split(" ");
     const [hour, minute] = time.split(":");
     return `${hour}:${minute}`;
   };

@@ -84,7 +84,12 @@ export const ChatProvider = (props) => {
       console.log("New message loaded!", newMessage);
     };
 
-    socketConnection.on("has_new_message", (newMessageData) => {
+    const onNewMessageListener = (newMessageData) => {
+      console.log("has_new_message", newMessageData);
+
+      if (chat === null) return;
+      if (newMessageData.chatId !== chat._id) return;
+
       (async function () {
         try {
           const { messageId } = newMessageData;
@@ -101,7 +106,13 @@ export const ChatProvider = (props) => {
           });
         }
       })();
-    });
+    };
+
+    socketConnection.on("has_new_message", onNewMessageListener);
+
+    return () => {
+      socketConnection.off("has_new_message", onNewMessageListener);
+    };
   }, [socketConnection, user, chat, messages, toast]);
 
   return (

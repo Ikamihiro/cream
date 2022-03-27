@@ -27,10 +27,13 @@ export const UserProvider = (props) => {
   }, [user, setUser]);
 
   useEffect(() => {
-    if (user !== null) {
-      setSocketConnection(connectWithSocket(user));
-      console.log("User changed:", user);
-    }
+    if (user === null) return;
+
+    const newSocket = connectWithSocket(user);
+    setSocketConnection(newSocket);
+    console.log("User changed:", user);
+
+    return () => newSocket.close();
   }, [user]);
 
   return (
