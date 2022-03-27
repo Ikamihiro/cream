@@ -9,10 +9,10 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  Tabs
-} from "@chakra-ui/react"
-import CreateChat from "../Forms/CreateChat"
-import GetInChat from "../Forms/GetInChat"
+  Tabs,
+} from "@chakra-ui/react";
+import CreateChat from "../Forms/CreateChat";
+import GetInChat from "../Forms/GetInChat";
 
 export default function Chats({ isOpen, onClose }) {
   return (
@@ -39,5 +39,5 @@ export default function Chats({ isOpen, onClose }) {
         </ModalBody>
       </ModalContent>
     </Modal>
-  )
+  );
 }

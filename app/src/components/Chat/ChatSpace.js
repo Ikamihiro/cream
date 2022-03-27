@@ -1,11 +1,11 @@
-import { Flex, Heading, Text } from "@chakra-ui/react"
-import { useChat } from "../../contexts/chat.context"
-import ChatBody from "./ChatBody"
-import ChatFooter from "./ChatFooter"
-import ChatHead from "./ChatHead"
+import { Flex, Heading, Text } from "@chakra-ui/react";
+import { useChat } from "../../contexts/chat.context";
+import ChatBody from "./ChatBody";
+import ChatFooter from "./ChatFooter";
+import ChatHead from "./ChatHead";
 
 export default function ChatSpace() {
-  const { chat } = useChat()
+  const { chat } = useChat();
 
   if (chat === null) {
     return (
@@ -19,25 +19,15 @@ export default function ChatSpace() {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Flex
-            padding={"1rem"}
-          >
-            <Heading
-              fontFamily={"monospace"}
-            >
-              Bem vindo ao Cream
-            </Heading>
+          <Flex padding={"1rem"}>
+            <Heading fontFamily={"monospace"}>Bem vindo ao Cream</Heading>
           </Flex>
-          <Flex
-            padding={"1rem"}
-          >
-            <Text fontSize={"15pt"}>
-              Escolha uma conversa
-            </Text>
+          <Flex padding={"1rem"}>
+            <Text fontSize={"15pt"}>Escolha uma conversa</Text>
           </Flex>
         </Flex>
       </>
-    )
+    );
   }
 
   return (
@@ -56,5 +46,5 @@ export default function ChatSpace() {
         <ChatFooter />
       </Flex>
     </>
-  )
+  );
 }

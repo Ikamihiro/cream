@@ -6,12 +6,12 @@ export const connectWithSocket = (user) => {
     const socket = io(SOCKET_URL, {
       query: {
         origin: "client",
-        userId: user._id
-      }
-    })
-  
-    return socket
+        userId: user._id,
+      },
+    });
+
+    return socket;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};

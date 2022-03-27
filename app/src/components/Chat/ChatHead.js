@@ -1,16 +1,16 @@
-import { Flex, Icon, IconButton, Text, useDisclosure } from "@chakra-ui/react"
-import { FiUser, FiSettings } from "react-icons/fi"
-import { BsFillPersonPlusFill } from "react-icons/bs"
-import { useChat } from "../../contexts/chat.context"
-import Participants from "../Modals/Participants"
+import { Flex, Icon, IconButton, Text, useDisclosure } from "@chakra-ui/react";
+import { FiUser, FiSettings } from "react-icons/fi";
+import { BsFillPersonPlusFill } from "react-icons/bs";
+import { useChat } from "../../contexts/chat.context";
+import Participants from "../Modals/Participants";
 
 export default function ChatHead() {
-  const { chat } = useChat()
+  const { chat } = useChat();
   const {
     isOpen: isParticipantsOpen,
     onOpen: onParticipantsOpen,
-    onClose: onParticipantsClose
-  } = useDisclosure()
+    onClose: onParticipantsClose,
+  } = useDisclosure();
 
   return (
     <>
@@ -23,17 +23,8 @@ export default function ChatHead() {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Flex
-          direction={"row"}
-          justifyContent={"start"}
-          alignItems={"center"}
-        >
-          <Icon
-            w={"6"}
-            h={"6"}
-            as={FiUser}
-            marginRight=".5rem"
-          />
+        <Flex direction={"row"} justifyContent={"start"} alignItems={"center"}>
+          <Icon w={"6"} h={"6"} as={FiUser} marginRight=".5rem" />
           <Text
             fontSize={"14pt"}
             fontWeight={"bold"}
@@ -65,10 +56,7 @@ export default function ChatHead() {
           />
         </Flex>
       </Flex>
-      <Participants
-        isOpen={isParticipantsOpen}
-        onClose={onParticipantsClose}
-      />
+      <Participants isOpen={isParticipantsOpen} onClose={onParticipantsClose} />
     </>
-  )
+  );
 }

@@ -1,33 +1,33 @@
 export const login = (user) => {
   try {
-    sessionStorage.setItem("user", JSON.stringify(user))
+    sessionStorage.setItem("user", JSON.stringify(user));
 
-    return true
+    return true;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const getUser = () => {
   try {
-    const userSession = sessionStorage.getItem("user")
+    const userSession = sessionStorage.getItem("user");
 
     if (userSession === null) {
-      return null
+      return null;
     }
 
-    return JSON.parse(userSession)
+    return JSON.parse(userSession);
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const logout = () => {
   try {
-    sessionStorage.removeItem("user")
+    sessionStorage.removeItem("user");
 
-    return true
+    return true;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};

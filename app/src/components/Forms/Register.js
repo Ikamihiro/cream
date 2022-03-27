@@ -1,45 +1,58 @@
-import { Avatar, Box, Button, Flex, FormControl, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Link, Stack, Text, useToast } from '@chakra-ui/react'
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { FaUserAlt, FaLock } from "react-icons/fa"
-import { useUser } from '../../contexts/user.context'
-import { login } from "../../helpers/auth"
-import AuthService from '../../services/auth.service'
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Link,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { FaUserAlt, FaLock } from "react-icons/fa";
+import { useUser } from "../../contexts/user.context";
+import { login } from "../../helpers/auth";
+import AuthService from "../../services/auth.service";
 
 export default function RegisterForm({ setIsLogin }) {
-  const { setUser } = useUser()
+  const { setUser } = useUser();
   const {
     register,
     handleSubmit,
-    formState: {
-      errors
-    }
-  } = useForm()
+    formState: { errors },
+  } = useForm();
 
-  const [showPassword, setShowPassword] = useState(false)
-  const toast = useToast()
+  const [showPassword, setShowPassword] = useState(false);
+  const toast = useToast();
 
-  const handleShowClick = () => setShowPassword(!showPassword)
+  const handleShowClick = () => setShowPassword(!showPassword);
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     try {
-      const { name, email, password } = data
+      const { name, email, password } = data;
 
-      let user = await AuthService.register(name, email, password)
-      delete user.password
-      
-      login(user)
-      setUser(user)
+      let user = await AuthService.register(name, email, password);
+      delete user.password;
+
+      login(user);
+      setUser(user);
     } catch (error) {
       toast({
         title: "Atenção",
         description: error.message,
         duration: 9000,
         isClosable: true,
-        status: "error"
-      })
+        status: "error",
+      });
     }
-  }
+  };
 
   return (
     <>
@@ -79,13 +92,11 @@ export default function RegisterForm({ setIsLogin }) {
                       type="text"
                       placeholder="name"
                       {...register("name", {
-                        required: true
+                        required: true,
                       })}
                     />
                   </InputGroup>
-                  {errors.name && (
-                    <Text color='red'>Nome é requerido</Text>
-                  )}
+                  {errors.name && <Text color="red">Nome é requerido</Text>}
                 </FormControl>
                 <FormControl>
                   <InputGroup>
@@ -99,13 +110,11 @@ export default function RegisterForm({ setIsLogin }) {
                       type="email"
                       placeholder="email address"
                       {...register("email", {
-                        required: true
+                        required: true,
                       })}
                     />
                   </InputGroup>
-                  {errors.email && (
-                    <Text color='red'>Email é requerido</Text>
-                  )}
+                  {errors.email && <Text color="red">Email é requerido</Text>}
                 </FormControl>
                 <FormControl>
                   <InputGroup>
@@ -119,7 +128,7 @@ export default function RegisterForm({ setIsLogin }) {
                       type={showPassword ? "text" : "password"}
                       placeholder="Password"
                       {...register("password", {
-                        required: true
+                        required: true,
                       })}
                     />
                     <InputRightElement width="4.5rem">
@@ -129,7 +138,7 @@ export default function RegisterForm({ setIsLogin }) {
                     </InputRightElement>
                   </InputGroup>
                   {errors.password && (
-                    <Text color='red'>Senha é requerida</Text>
+                    <Text color="red">Senha é requerida</Text>
                   )}
                 </FormControl>
                 <Button
@@ -153,5 +162,5 @@ export default function RegisterForm({ setIsLogin }) {
         </Box>
       </Flex>
     </>
-  )
+  );
 }

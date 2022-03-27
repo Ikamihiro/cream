@@ -1,17 +1,17 @@
-import { Box, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react"
-import { FiLogOut, FiUser, FiPlus } from "react-icons/fi"
-import { IoIosOptions } from "react-icons/io"
-import { useChats } from "../../contexts/chats.context"
-import { useChat } from "../../contexts/chat.context"
-import { useUser } from "../../contexts/user.context"
-import { logout } from "../../helpers/auth"
-import NavItem from "./NavItem"
+import { Box, Flex, IconButton, Link, Text, useToast } from "@chakra-ui/react";
+import { FiLogOut, FiUser, FiPlus } from "react-icons/fi";
+import { IoIosOptions } from "react-icons/io";
+import { useChats } from "../../contexts/chats.context";
+import { useChat } from "../../contexts/chat.context";
+import { useUser } from "../../contexts/user.context";
+import { logout } from "../../helpers/auth";
+import NavItem from "./NavItem";
 
 export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
-  const toast = useToast()
-  const { user, setUser } = useUser()
-  const { chats } = useChats()
-  const { setChat } = useChat()
+  const toast = useToast();
+  const { user, setUser } = useUser();
+  const { chats } = useChats();
+  const { setChat } = useChat();
 
   const onLogoutClick = () => {
     try {
@@ -23,10 +23,10 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
         description: error.message,
         duration: 9000,
         isClosable: true,
-        status: "error"
-      })
+        status: "error",
+      });
     }
-  }
+  };
 
   const chooseChat = (chat) => {
     try {
@@ -37,10 +37,10 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
         description: error.message,
         duration: 9000,
         isClosable: true,
-        status: "error"
-      })
+        status: "error",
+      });
     }
-  }
+  };
 
   return (
     <Box
@@ -59,33 +59,24 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
         bg={"gray.300"}
       >
         <Flex mx={"3"}>
-          <Text
-            fontSize={"18"}
-            fontFamily={"monospace"}
-            fontWeight={"bold"}
-          >
-            <Link href={"/"}>
-              {user ? user.name : ""}
-            </Link>
+          <Text fontSize={"18"} fontFamily={"monospace"} fontWeight={"bold"}>
+            <Link href={"/"}>{user ? user.name : ""}</Link>
           </Text>
         </Flex>
-        <Flex
-          alignItems={"center"}
-          justifyContent={"end"}
-        >
+        <Flex alignItems={"center"} justifyContent={"end"}>
           <IconButton
             variant={"link"}
             aria-label={"add chat"}
             color={"black"}
             onClick={() => onAddChatOpen()}
-            icon={< FiPlus />}
+            icon={<FiPlus />}
           />
           <IconButton
             variant={"link"}
             aria-label={"configs"}
             color={"black"}
             onClick={() => onConfigOpen()}
-            icon={< IoIosOptions />}
+            icon={<IoIosOptions />}
           />
           <IconButton
             variant={"link"}
@@ -101,12 +92,12 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
         overflowY={"auto"}
         h={"full"}
         sx={{
-          '&::-webkit-scrollbar': {
-            width: '8px',
-            backgroundColor: 'rgba(0, 0, 0, 0.07)',
+          "&::-webkit-scrollbar": {
+            width: "8px",
+            backgroundColor: "rgba(0, 0, 0, 0.07)",
           },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0, 0, 0, 0.12)',
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgba(0, 0, 0, 0.12)",
           },
         }}
       >
@@ -120,9 +111,9 @@ export default function Sidebar({ onConfigOpen, onAddChatOpen, ...rest }) {
             >
               {chat.name}
             </NavItem>
-          )
+          );
         })}
       </Flex>
     </Box>
-  )
+  );
 }

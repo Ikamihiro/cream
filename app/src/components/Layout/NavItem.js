@@ -1,10 +1,10 @@
-import { Flex, Icon, Link } from "@chakra-ui/react"
+import { Flex, Icon, Link } from "@chakra-ui/react";
 
 export default function NavItem({ icon, onClick, children, ...rest }) {
   return (
     <Link
-      style={{ textDecoration: 'none' }}
-      _focus={{ boxShadow: 'none' }}
+      style={{ textDecoration: "none" }}
+      _focus={{ boxShadow: "none" }}
       onClick={onClick}
     >
       <Flex
@@ -16,19 +16,13 @@ export default function NavItem({ icon, onClick, children, ...rest }) {
         borderBottom={"1px"}
         borderColor={"gray.200"}
         _hover={{
-          bg: 'gray.200'
+          bg: "gray.200",
         }}
         {...rest}
       >
-        {icon && (
-          <Icon
-            mr={"4"}
-            fontSize={"16"}
-            as={icon}
-          ></Icon>
-        )}
+        {icon && <Icon mr={"4"} fontSize={"16"} as={icon}></Icon>}
         {children}
       </Flex>
     </Link>
-  )
+  );
 }

@@ -1,22 +1,18 @@
-import { Box, Button, Flex, Input, useToast } from "@chakra-ui/react"
-import { useForm } from "react-hook-form"
-import { useUser } from "../../contexts/user.context"
-import { useChat } from "../../contexts/chat.context"
-import MessagesService from "../../services/messages.service"
+import { Box, Button, Flex, Input, useToast } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { useUser } from "../../contexts/user.context";
+import { useChat } from "../../contexts/chat.context";
+import MessagesService from "../../services/messages.service";
 
 export default function SendMessage() {
-  const toast = useToast()
-  const { user } = useUser()
-  const { chat } = useChat()
-  const {
-    register,
-    handleSubmit,
-    reset
-  } = useForm()
+  const toast = useToast();
+  const { user } = useUser();
+  const { chat, addLoadingMessage } = useChat();
+  const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     try {
-      const { message } = data
+      const { message } = data;
 
       if (!message || message === "") {
         return;
@@ -24,28 +20,20 @@ export default function SendMessage() {
 
       const response = await MessagesService.sendText(user, {
         body: message,
-        chatId: chat._id
-      })
-      console.log(response)
-      reset()
-
-      toast({
-        title: "Uouu!",
-        description: "Mensagem enviada com sucesso!",
-        duration: 9000,
-        isClosable: true,
-        status: "success"
-      })
+        chatId: chat._id,
+      });
+      addLoadingMessage(response);
+      reset();
     } catch (error) {
       toast({
         title: "Atenção",
         description: error.message,
         duration: 9000,
         isClosable: true,
-        status: "error"
-      })
+        status: "error",
+      });
     }
-  }
+  };
 
   return (
     <>
@@ -57,7 +45,7 @@ export default function SendMessage() {
               type={"text"}
               placeholder={"Digite a mensagem ..."}
               {...register("message", {
-                required: true
+                required: true,
               })}
             />
           </Box>
@@ -75,5 +63,5 @@ export default function SendMessage() {
         </Flex>
       </form>
     </>
-  )
+  );
 }

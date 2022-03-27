@@ -1,9 +1,22 @@
-import { Flex, Icon, IconButton, Image } from "@chakra-ui/react"
-import { IoIosArrowDown } from "react-icons/io"
-import { AiOutlineFilePdf } from "react-icons/ai"
-import "./Message.css"
+import { Flex, Icon, IconButton, Image } from "@chakra-ui/react";
+import { IoIosArrowDown } from "react-icons/io";
+import { AiOutlineFilePdf, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { BiLoaderCircle } from "react-icons/bi";
+import "./Message.css";
+import { useUser } from "../../contexts/user.context";
 
-export default function Message({ type, content, isSelf, sender, sendAt }) {
+export default function Message({ message }) {
+  const { user } = useUser();
+  const { type, content, sender, sendAt, isLoading } = message;
+  const isSelf = sender.senderId === user._id;
+
+  const getTime = () => {
+    let dateString = new Date(sendAt).toLocaleString();
+    let [, time] = dateString.split(", ");
+    const [hour, minute] = time.split(":");
+    return `${hour}:${minute}`;
+  };
+
   return (
     <>
       <Flex
@@ -12,37 +25,38 @@ export default function Message({ type, content, isSelf, sender, sendAt }) {
         alignItems={"center"}
         margin={".5rem"}
       >
-        <div className={"message" + (isSelf ? " message__out" : " message__in")}>
+        <div
+          className={"message" + (isSelf ? " message__out" : " message__in")}
+        >
           <div className={"message-header"}>
-            <div className={"message-title"}>
-              {sender.name}
-            </div>
+            <div className={"message-title"}>{sender.senderName}</div>
             <div className={"message-options"}>
-              <div className={"message-date"}>
-                {"10:00"}
-              </div>
-              <IconButton
-                variant={"link"}
-                size={"sm"}
-                bg={"#d4dce6"}
-                icon={<IoIosArrowDown />}
-              />
+              {isLoading === false ? (
+                <>
+                  <div className={"message-date"}>{getTime()}</div>
+                  <IconButton
+                    variant={"link"}
+                    size={"sm"}
+                    bg={"#d4dce6"}
+                    icon={<IoIosArrowDown />}
+                  />
+                </>
+              ) : (
+                <>
+                  <Icon as={BiLoaderCircle}></Icon>
+                </>
+              )}
             </div>
           </div>
           <div className={"message-body"}>
             {type === "image" && (
               <div className="message-body__image">
-                <Image
-                  src={content}
-                  boxSize={"400px"}
-                />
+                <Image src={content} boxSize={"400px"} />
               </div>
             )}
 
             {type === "text" && (
-              <div className="message-body__text">
-                {content.body}
-              </div>
+              <div className="message-body__text">{content.body}</div>
             )}
 
             {type === "video" && (
@@ -72,5 +86,5 @@ export default function Message({ type, content, isSelf, sender, sendAt }) {
         </div>
       </Flex>
     </>
-  )
+  );
 }

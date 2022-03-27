@@ -1,13 +1,10 @@
-import { Box, Flex } from "@chakra-ui/react"
-import SendMessage from "../Forms/SendMessage"
+import { Box, Flex } from "@chakra-ui/react";
+import SendMessage from "../Forms/SendMessage";
 
 export default function ChatFooter() {
   return (
     <>
-      <Box
-        bg={"gray.200"}
-        w={"full"}
-      >
+      <Box bg={"gray.200"} w={"full"}>
         <Flex
           direction={"column"}
           padding={"1.35rem"}
@@ -18,5 +15,5 @@ export default function ChatFooter() {
         </Flex>
       </Box>
     </>
-  )
+  );
 }

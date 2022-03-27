@@ -1,54 +1,56 @@
-import { Button, FormControl, Input, InputGroup, Stack, Text, useToast } from "@chakra-ui/react"
-import { useForm } from "react-hook-form"
-import { useChat } from "../../contexts/chat.context"
-import { useUser } from "../../contexts/user.context"
-import ChatsService from "../../services/chats.service"
+import {
+  Button,
+  FormControl,
+  Input,
+  InputGroup,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { useChat } from "../../contexts/chat.context";
+import { useUser } from "../../contexts/user.context";
+import ChatsService from "../../services/chats.service";
 
 export default function AddParticipant() {
-  const { user } = useUser()
-  const { chat, setChat } = useChat()
-  const toast = useToast()
+  const { user } = useUser();
+  const { chat, setChat } = useChat();
+  const toast = useToast();
   const {
     register,
     handleSubmit,
     reset,
-    formState: {
-      errors
-    }
-  } = useForm()
+    formState: { errors },
+  } = useForm();
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     try {
-      const { email } = data
-      setChat(await ChatsService.addParticipant(user, chat._id, email))
-      reset()
+      const { email } = data;
+      setChat(await ChatsService.addParticipant(user, chat._id, email));
+      reset();
 
       toast({
         title: "Uouu!",
         description: "Participante adicionado com sucesso!",
         duration: 9000,
         isClosable: true,
-        status: "success"
-      })
+        status: "success",
+      });
     } catch (error) {
       toast({
         title: "Atenção",
         description: error.message,
         duration: 9000,
         isClosable: true,
-        status: "error"
-      })
+        status: "error",
+      });
     }
-  }
+  };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack
-          spacing={"4"}
-          padding={".5rem"}
-          backgroundColor={"white"}
-        >
+        <Stack spacing={"4"} padding={".5rem"} backgroundColor={"white"}>
           <FormControl>
             <InputGroup>
               <Input
@@ -56,7 +58,7 @@ export default function AddParticipant() {
                 type={"text"}
                 placeholder={"Email do participante"}
                 {...register("email", {
-                  required: true
+                  required: true,
                 })}
               />
             </InputGroup>
@@ -76,5 +78,5 @@ export default function AddParticipant() {
         </Stack>
       </form>
     </>
-  )
+  );
 }

@@ -1,4 +1,11 @@
-import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from "@chakra-ui/react"
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
 
 export default function Config({ isOpen, onClose }) {
   return (
@@ -10,5 +17,5 @@ export default function Config({ isOpen, onClose }) {
         <ModalBody></ModalBody>
       </ModalContent>
     </Modal>
-  )
+  );
 }

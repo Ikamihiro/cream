@@ -1,56 +1,61 @@
-import { Box, Button, Flex, FormControl, Input, InputGroup, Stack, Text, Textarea, useToast } from "@chakra-ui/react"
-import { useForm } from "react-hook-form"
-import { useChats } from "../../contexts/chats.context"
-import { useUser } from "../../contexts/user.context"
-import ChatsService from "../../services/chats.service"
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  Input,
+  InputGroup,
+  Stack,
+  Text,
+  Textarea,
+  useToast,
+} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { useChats } from "../../contexts/chats.context";
+import { useUser } from "../../contexts/user.context";
+import ChatsService from "../../services/chats.service";
 
 export default function CreateChat() {
-  const toast = useToast()
-  const { refreshChats } = useChats()
-  const { user } = useUser()
+  const toast = useToast();
+  const { refreshChats } = useChats();
+  const { user } = useUser();
   const {
     register,
     handleSubmit,
     reset,
-    formState: {
-      errors
-    }
-  } = useForm()
+    formState: { errors },
+  } = useForm();
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     try {
-      const {
-        name,
-        title,
-        description
-      } = data
+      const { name, title, description } = data;
 
       await ChatsService.create(user, {
         name: name,
         title: title,
-        description: description
-      })
+        description: description,
+      });
 
-      refreshChats()
-      reset()
+      refreshChats();
+      reset();
 
       toast({
         title: "Uouu!",
         description: "Conversa criada com sucesso!",
         duration: 9000,
         isClosable: true,
-        status: "success"
-      })
+        status: "success",
+      });
     } catch (error) {
       toast({
         title: "Atenção",
         description: error.message,
         duration: 9000,
         isClosable: true,
-        status: "error"
-      })
+        status: "error",
+      });
     }
-  }
+  };
 
   return (
     <Flex
@@ -59,18 +64,10 @@ export default function CreateChat() {
       justifyContent={"center"}
       alignItems={"stretch"}
     >
-      <Stack
-        flexDir={"column"}
-        justifyContent={"center"}
-        alignItems={"center"}
-      >
+      <Stack flexDir={"column"} justifyContent={"center"} alignItems={"center"}>
         <Box minW={"100%"}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack
-              spacing={"4"}
-              padding={".5rem"}
-              backgroundColor={"white"}
-            >
+            <Stack spacing={"4"} padding={".5rem"} backgroundColor={"white"}>
               <FormControl>
                 <InputGroup>
                   <Input
@@ -78,7 +75,7 @@ export default function CreateChat() {
                     type={"text"}
                     placeholder={"Nome do chat"}
                     {...register("name", {
-                      required: true
+                      required: true,
                     })}
                   />
                 </InputGroup>
@@ -93,7 +90,7 @@ export default function CreateChat() {
                     type="text"
                     placeholder="Título do chat"
                     {...register("title", {
-                      required: true
+                      required: true,
                     })}
                   />
                 </InputGroup>
@@ -107,7 +104,7 @@ export default function CreateChat() {
                     placeholder={"Descrição do chat"}
                     resize={"vertical"}
                     {...register("description", {
-                      required: true
+                      required: true,
                     })}
                   />
                 </InputGroup>
@@ -129,5 +126,5 @@ export default function CreateChat() {
         </Box>
       </Stack>
     </Flex>
-  )
+  );
 }
