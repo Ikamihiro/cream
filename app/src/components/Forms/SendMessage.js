@@ -4,11 +4,16 @@ import { useUser } from "../../contexts/user.context";
 import { useChat } from "../../contexts/chat.context";
 import MessagesService from "../../services/messages.service";
 
-export default function SendMessage() {
+export default function SendMessage({ messagesEndRef }) {
   const toast = useToast();
   const { user } = useUser();
   const { chat, addLoadingMessage } = useChat();
   const { register, handleSubmit, reset } = useForm();
+
+  const scrollToBottom = () => {
+    if (!messagesEndRef || !messagesEndRef.current) return;
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -24,6 +29,7 @@ export default function SendMessage() {
       });
       addLoadingMessage(response);
       reset();
+      scrollToBottom();
     } catch (error) {
       toast({
         title: "Atenção",

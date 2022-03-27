@@ -1,9 +1,19 @@
 import { Flex } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useChat } from "../../contexts/chat.context";
 import Message from "../Message/Message";
 
-export default function ChatBody() {
+export default function ChatBody({ messagesEndRef }) {
   const { messages } = useChat();
+
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (!messagesEndRef) return;
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    };
+
+    scrollToBottom();
+  }, [messages, messagesEndRef]);
 
   return (
     <>
@@ -26,6 +36,7 @@ export default function ChatBody() {
         {messages.map((message, index) => {
           return <Message key={index} message={message} />;
         })}
+        <div ref={messagesEndRef}></div>
       </Flex>
     </>
   );

@@ -1,4 +1,5 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
+import { createRef } from "react";
 import { useChat } from "../../contexts/chat.context";
 import ChatBody from "./ChatBody";
 import ChatFooter from "./ChatFooter";
@@ -6,6 +7,7 @@ import ChatHead from "./ChatHead";
 
 export default function ChatSpace() {
   const { chat } = useChat();
+  const messagesEndRef = createRef();
 
   if (chat === null) {
     return (
@@ -42,8 +44,8 @@ export default function ChatSpace() {
         alignItems={"stretch"}
       >
         <ChatHead />
-        <ChatBody />
-        <ChatFooter />
+        <ChatBody messagesEndRef={messagesEndRef} />
+        <ChatFooter messagesEndRef={messagesEndRef} />
       </Flex>
     </>
   );
